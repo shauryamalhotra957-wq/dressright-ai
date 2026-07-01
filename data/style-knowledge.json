@@ -1,0 +1,68 @@
+[
+  {
+    "id": "capsule-basics",
+    "title": "Lazy-proof capsule wardrobe",
+    "summary": "A low-effort men's wardrobe should start with interchangeable neutrals, one accent color, washable layers, and repeatable outfit formulas.",
+    "tags": ["capsule", "minimal", "lazy", "neutrals", "repeatable", "everyday"],
+    "advice": [
+      "Buy fewer items with high compatibility: jacket, knit, two shirts, two trousers, one versatile shoe, and one weather layer.",
+      "Favor machine-washable or easy-care fabrics when the user wants minimal maintenance.",
+      "Use one accent family so outfits look intentional without requiring daily decisions."
+    ]
+  },
+  {
+    "id": "office-smart-casual",
+    "title": "Modern office smart casual",
+    "summary": "A blazer, structured overshirt, merino layer, tapered trouser, and clean leather sneaker cover most hybrid-office situations.",
+    "tags": ["office", "smart casual", "executive", "hybrid", "blazer", "professional"],
+    "advice": [
+      "Choose texture instead of loud patterns for authority without looking overdressed.",
+      "A navy or charcoal jacket plus olive, stone, or slate trousers creates easy combinations.",
+      "Keep shoes clean and simple; they often decide whether the whole outfit reads polished."
+    ]
+  },
+  {
+    "id": "date-night",
+    "title": "Date night without trying too hard",
+    "summary": "Dark denim or tapered trousers, a soft knit polo, suede jacket, and one quiet accessory produce a confident evening look.",
+    "tags": ["date", "night", "social", "dinner", "bar", "romantic", "confident"],
+    "advice": [
+      "Use darker colors and tactile materials for evening because they photograph well and hide wear.",
+      "Avoid novelty pieces; one strong texture is enough.",
+      "Fit should be close through the shoulder and taper below the knee."
+    ]
+  },
+  {
+    "id": "creative-relaxed",
+    "title": "Creative relaxed polish",
+    "summary": "A chore jacket, camp collar shirt, relaxed taper trouser, and color-block accessory can look expressive while staying easy.",
+    "tags": ["creative", "artist", "relaxed", "color", "texture", "weekend"],
+    "advice": [
+      "Let one piece carry personality while the rest stays grounded.",
+      "Earthy green, rust, indigo, and cream play well together without screaming for attention.",
+      "Avoid tight fits when the target vibe is creative and relaxed."
+    ]
+  },
+  {
+    "id": "travel-kit",
+    "title": "Travel and no-fuss care",
+    "summary": "Wrinkle-resistant knits, stretch wool blends, and dark shoes make a capsule useful for trips and rushed mornings.",
+    "tags": ["travel", "wrinkle resistant", "easy care", "airport", "low maintenance"],
+    "advice": [
+      "Prefer packable layers and fabrics that recover overnight.",
+      "Dark, matte shoes survive travel better than pale canvas.",
+      "Avoid garments that require dry cleaning unless they unlock many outfits."
+    ]
+  },
+  {
+    "id": "fit-priorities",
+    "title": "Fit priorities for men",
+    "summary": "Shoulders, trouser break, sleeve length, and shoe shape have more impact than brand names.",
+    "tags": ["fit", "tailoring", "measurements", "body shape", "alterations"],
+    "advice": [
+      "Jacket shoulders should sit cleanly; sleeve and trouser length can be altered later.",
+      "Trousers should taper enough to reveal shoe shape but not pull across the thigh.",
+      "Budget for minor tailoring when buying a blazer or wool trouser."
+    ]
+  }
+]

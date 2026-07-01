@@ -1,0 +1,134 @@
+[
+  {
+    "id": "navy-unstructured-blazer",
+    "name": "Navy Unstructured Blazer",
+    "category": "jacket",
+    "price": 248,
+    "colors": ["navy"],
+    "tags": ["office", "smart casual", "date", "capsule", "executive", "tailoring"],
+    "care": "dry clean optional, spot clean between wears",
+    "fit": "soft shoulder, slight waist shape",
+    "why": "Instantly upgrades shirts, knits, and tees without feeling formal."
+  },
+  {
+    "id": "olive-chore-jacket",
+    "name": "Olive Cotton Chore Jacket",
+    "category": "jacket",
+    "price": 138,
+    "colors": ["olive"],
+    "tags": ["creative", "weekend", "travel", "layer", "relaxed", "capsule"],
+    "care": "machine wash cold",
+    "fit": "straight body, room for knit layer",
+    "why": "A relaxed layer that makes simple clothes look intentionally styled."
+  },
+  {
+    "id": "charcoal-merino-polo",
+    "name": "Charcoal Merino Knit Polo",
+    "category": "shirt",
+    "price": 96,
+    "colors": ["charcoal"],
+    "tags": ["date", "office", "travel", "minimal", "smart casual", "easy care"],
+    "care": "hand wash or delicate cold",
+    "fit": "trim through chest, not tight",
+    "why": "Reads more dressed than a tee but stays comfortable all day."
+  },
+  {
+    "id": "white-oxford-shirt",
+    "name": "White Oxford Button-Down",
+    "category": "shirt",
+    "price": 74,
+    "colors": ["white"],
+    "tags": ["office", "capsule", "minimal", "classic", "interview"],
+    "care": "machine wash warm",
+    "fit": "clean collar, relaxed torso",
+    "why": "The safest high-compatibility shirt for meetings and dinners."
+  },
+  {
+    "id": "slate-performance-trouser",
+    "name": "Slate Stretch Wool Trouser",
+    "category": "trouser",
+    "price": 128,
+    "colors": ["slate"],
+    "tags": ["office", "travel", "minimal", "smart casual", "wrinkle resistant"],
+    "care": "machine wash cold, hang dry",
+    "fit": "tapered, no break or slight break",
+    "why": "Comfortable enough for lazy mornings but polished enough for work."
+  },
+  {
+    "id": "dark-denim",
+    "name": "Dark Rinse Tapered Denim",
+    "category": "trouser",
+    "price": 118,
+    "colors": ["indigo"],
+    "tags": ["date", "weekend", "minimal", "capsule", "low maintenance"],
+    "care": "machine wash cold inside out",
+    "fit": "room in thigh, tapered below knee",
+    "why": "The low-effort evening base that still looks grown-up."
+  },
+  {
+    "id": "clean-white-sneaker",
+    "name": "Clean Leather Sneaker",
+    "category": "shoe",
+    "price": 142,
+    "colors": ["white"],
+    "tags": ["office", "weekend", "date", "capsule", "minimal", "travel"],
+    "care": "wipe clean",
+    "fit": "true to size",
+    "why": "Works with trousers, denim, and casual tailoring."
+  },
+  {
+    "id": "brown-suede-derby",
+    "name": "Brown Suede Derby",
+    "category": "shoe",
+    "price": 164,
+    "colors": ["brown"],
+    "tags": ["date", "office", "executive", "texture", "smart casual"],
+    "care": "brush and protect with suede spray",
+    "fit": "slightly rounded toe",
+    "why": "Adds texture and maturity without looking stiff."
+  },
+  {
+    "id": "oxblood-belt",
+    "name": "Oxblood Leather Belt",
+    "category": "accessory",
+    "price": 58,
+    "colors": ["oxblood"],
+    "tags": ["accent", "office", "date", "capsule"],
+    "care": "condition twice yearly",
+    "fit": "choose 2 inches above trouser waist",
+    "why": "A quiet accent that pairs with navy, grey, olive, and denim."
+  },
+  {
+    "id": "stone-rain-shell",
+    "name": "Stone Packable Rain Shell",
+    "category": "outerwear",
+    "price": 156,
+    "colors": ["stone"],
+    "tags": ["travel", "low maintenance", "weather", "capsule", "minimal"],
+    "care": "machine wash cold, reproof seasonally",
+    "fit": "hip length, layers over blazer",
+    "why": "Stops bad weather from ruining the only outfit you planned."
+  },
+  {
+    "id": "rust-camp-collar",
+    "name": "Rust Camp Collar Shirt",
+    "category": "shirt",
+    "price": 82,
+    "colors": ["rust"],
+    "tags": ["creative", "date", "weekend", "color", "relaxed"],
+    "care": "machine wash cold",
+    "fit": "straight hem, relaxed sleeve",
+    "why": "Adds personality while still matching navy, stone, denim, and olive."
+  },
+  {
+    "id": "black-watch",
+    "name": "Minimal Black Field Watch",
+    "category": "accessory",
+    "price": 88,
+    "colors": ["black"],
+    "tags": ["minimal", "date", "office", "travel", "accessory"],
+    "care": "wipe with microfiber cloth",
+    "fit": "38-40mm case for most wrists",
+    "why": "Finishes outfits without making the user think about jewelry."
+  }
+]

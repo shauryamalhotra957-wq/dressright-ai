@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DressRight AI</title>
+    <link rel="stylesheet" href="/styles.css?v=20260701" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="DressRight AI home">
+        <span class="brand-mark">DR</span>
+        <span>DressRight AI</span>
+      </a>
+      <nav aria-label="Primary">
+        <a href="#styler">Styler</a>
+        <a href="#capsule">Capsule</a>
+        <a href="#trust">Trust</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="styler">
+        <div class="hero-copy">
+          <p class="eyebrow">Upload. Approve. Ship.</p>
+          <h1>Dress like you care, without caring about shopping.</h1>
+          <p class="lede">A photo-first menswear assistant that turns lazy preferences into a priced, shippable capsule.</p>
+        </div>
+
+        <form class="styler-panel" id="styleForm" autocomplete="off">
+          <div class="panel-head">
+            <div>
+              <p class="kicker">Personal fit brief</p>
+              <h2>Build my capsule</h2>
+            </div>
+            <span class="status-pill" id="apiStatus">Connecting</span>
+          </div>
+
+          <label class="upload-drop" for="photoInput" id="dropZone">
+            <input id="photoInput" name="photo" type="file" accept="image/png,image/jpeg,image/webp" />
+            <span class="upload-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 16V4m0 0 5 5m-5-5-5 5M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3" /></svg>
+            </span>
+            <span>
+              <strong id="uploadTitle">Add a full-body or recent outfit photo</strong>
+              <small id="uploadMeta">PNG, JPG, or WebP. Validated before styling.</small>
+            </span>
+            <img id="photoPreview" alt="" />
+          </label>
+
+          <div class="control-grid">
+            <label>
+              <span>Style lane</span>
+              <select id="styleMode" name="styleMode">
+                <option value="minimal">Minimal</option>
+                <option value="executive">Executive</option>
+                <option value="creative">Creative</option>
+                <option value="date">Date night</option>
+                <option value="travel">Travel</option>
+              </select>
+            </label>
+            <label>
+              <span>Styling mode</span>
+              <select id="serviceMode" name="serviceMode">
+                <option value="hybrid">AI + human review</option>
+                <option value="ai">AI capsule</option>
+                <option value="concierge">Concierge</option>
+              </select>
+            </label>
+          </div>
+
+          <fieldset class="choice-row" aria-label="Occasions">
+            <legend>Occasions</legend>
+            <label><input type="checkbox" name="occasion" value="office" checked />Office</label>
+            <label><input type="checkbox" name="occasion" value="date" />Date</label>
+            <label><input type="checkbox" name="occasion" value="travel" checked />Travel</label>
+            <label><input type="checkbox" name="occasion" value="weekend" />Weekend</label>
+          </fieldset>
+
+          <fieldset class="swatches" aria-label="Preferred colors">
+            <legend>Colors</legend>
+            <label style="--swatch: #111827"><input type="checkbox" name="color" value="navy" checked /><span>Navy</span></label>
+            <label style="--swatch: #374151"><input type="checkbox" name="color" value="charcoal" checked /><span>Charcoal</span></label>
+            <label style="--swatch: #60714d"><input type="checkbox" name="color" value="olive" /><span>Olive</span></label>
+            <label style="--swatch: #8b1e3f"><input type="checkbox" name="color" value="oxblood" /><span>Oxblood</span></label>
+            <label style="--swatch: #b05a2a"><input type="checkbox" name="color" value="rust" /><span>Rust</span></label>
+          </fieldset>
+
+          <div class="control-grid compact">
+            <label>
+              <span>Style icon</span>
+              <input id="favoriteStyleIcon" name="favoriteStyleIcon" maxlength="64" placeholder="e.g. Ryan Gosling" />
+            </label>
+            <label>
+              <span>Fit</span>
+              <select id="fitGoal" name="fitGoal">
+                <option value="balanced">Balanced</option>
+                <option value="slimmer">Sharper</option>
+                <option value="relaxed">Relaxed</option>
+              </select>
+            </label>
+            <label>
+              <span>Height</span>
+              <input id="height" name="height" maxlength="20" placeholder="5'10&quot;" />
+            </label>
+            <label>
+              <span>Waist</span>
+              <input id="waist" name="waist" maxlength="12" placeholder="32" />
+            </label>
+            <label>
+              <span>Shoe</span>
+              <input id="shoe" name="shoe" maxlength="12" placeholder="10.5" />
+            </label>
+            <label>
+              <span>Care</span>
+              <select id="careTolerance" name="careTolerance">
+                <option value="very-low">Very low</option>
+                <option value="normal">Normal</option>
+                <option value="fine-with-tailoring">Tailoring ok</option>
+              </select>
+            </label>
+          </div>
+
+          <label class="budget-row">
+            <span>Budget <strong id="budgetValue">$900</strong></span>
+            <input id="budget" name="budget" type="range" min="350" max="2500" step="50" value="900" />
+          </label>
+
+          <div class="actions">
+            <button class="primary" type="submit" title="Build capsule">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h14m0 0-5-5m5 5-5 5" /></svg>
+              Build capsule
+            </button>
+            <button class="secondary" type="button" id="resetButton" title="Reset selections">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v6h6" /></svg>
+              Reset
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <section class="results-band" id="capsule" aria-live="polite">
+        <div class="section-head">
+          <p class="kicker">Recommended capsule</p>
+          <h2 id="resultTitle">Your plan appears here after the first run.</h2>
+        </div>
+        <div class="results-layout">
+          <article class="solution-panel">
+            <div id="solutionBody" class="empty-state">
+              <strong>Ready when your photo is.</strong>
+              <span>The recommendation engine can run with preferences only, but a photo gives the fit brief more signal.</span>
+            </div>
+          </article>
+          <aside class="checkout-panel">
+            <div class="price-total">
+              <span>Total estimate</span>
+              <strong id="totalPrice">$0</strong>
+            </div>
+            <div id="priceLines" class="price-lines"></div>
+            <button class="primary wide" id="checkoutButton" type="button" disabled title="Approve and create checkout">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6h15l-2 8H8L6 3H3m5 15a1 1 0 1 0 0 2 1 1 0 0 0 0-2Zm10 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2Z" /></svg>
+              Approve capsule
+            </button>
+            <p id="checkoutNote" class="microcopy">No checkout yet.</p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="trust-band" id="trust">
+        <div class="section-head">
+          <p class="kicker">Security model</p>
+          <h2>Built for photos, payments, and AI boundaries.</h2>
+        </div>
+        <div class="trust-grid">
+          <article>
+            <span class="trust-icon">01</span>
+            <h3>Upload gate</h3>
+            <p>Allowlisted image MIME types, magic-byte verification, size limits, active-content marker rejection, and no binary retention in the demo server.</p>
+          </article>
+          <article>
+            <span class="trust-icon">02</span>
+            <h3>RAG boundary</h3>
+            <p>Recommendations retrieve from curated style and catalog records; user input is sanitized before retrieval and never treated as system instruction.</p>
+          </article>
+          <article>
+            <span class="trust-icon">03</span>
+            <h3>Checkout boundary</h3>
+            <p>The app creates an order estimate and expects hosted payment, keeping raw card data outside the application boundary.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <script src="/app.js?v=20260701" defer></script>
+  </body>
+</html>
