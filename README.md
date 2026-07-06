@@ -47,6 +47,14 @@ http://127.0.0.1:4173
 npm test
 ```
 
+## Validate
+
+```powershell
+npm run validate
+```
+
+`npm run validate` is the pre-commit check for this dependency-free prototype. It currently runs the full Node test suite.
+
 ## Project Structure
 
 ```text
