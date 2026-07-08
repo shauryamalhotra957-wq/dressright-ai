@@ -41,8 +41,10 @@ function loadJson(file) {
 function safeStaticPath(publicDir, requestPath) {
   const decoded = decodeURIComponent(requestPath.split("?")[0]);
   const cleanPath = decoded === "/" ? "/index.html" : decoded;
-  const resolved = path.resolve(publicDir, `.${cleanPath}`);
-  if (!resolved.startsWith(path.resolve(publicDir))) return null;
+  const publicRoot = path.resolve(publicDir);
+  const resolved = path.resolve(publicRoot, `.${cleanPath}`);
+  const relative = path.relative(publicRoot, resolved);
+  if (relative.startsWith("..") || path.isAbsolute(relative)) return null;
   return resolved;
 }
 
