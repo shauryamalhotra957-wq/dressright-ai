@@ -76,3 +76,19 @@ test("API session, CSRF, and recommendation flow", async () => {
     server.close();
   }
 });
+
+test("session endpoint tolerates malformed cookie encoding", async () => {
+  const server = createServer();
+  const port = await listen(server);
+  try {
+    const response = await fetch(`http://127.0.0.1:${port}/api/session`, {
+      headers: { Cookie: "dressright_session=%zz; theme=dark" }
+    });
+    assert.equal(response.status, 200);
+    const payload = await response.json();
+    assert.ok(payload.csrfToken);
+    assert.match(response.headers.get("set-cookie"), /dressright_session=/);
+  } finally {
+    server.close();
+  }
+});
