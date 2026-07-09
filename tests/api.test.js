@@ -15,6 +15,7 @@ test("static path resolver blocks traversal", () => {
   const publicDir = path.join(process.cwd(), "public");
   assert.equal(safeStaticPath(publicDir, "/../../secret.txt"), null);
   assert.equal(safeStaticPath(publicDir, "/../publicity/secret.txt"), null);
+  assert.equal(safeStaticPath(publicDir, "/%zz"), null);
 });
 
 test("API session, CSRF, and recommendation flow", async () => {
