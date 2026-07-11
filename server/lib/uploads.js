@@ -47,7 +47,7 @@ function normalizeFileName(name) {
 }
 
 function hasActiveContentMarkers(buffer) {
-  const sample = buffer.subarray(0, Math.min(buffer.length, 4096)).toString("utf8").toLowerCase();
+  const sample = buffer.toString("utf8").toLowerCase();
   return [
     "<script",
     "<svg",

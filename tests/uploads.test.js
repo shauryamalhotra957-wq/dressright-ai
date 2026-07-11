@@ -47,3 +47,14 @@ test("rejects active content markers", () => {
   assert.equal(result.ok, false);
   assert.equal(result.code, "active_content_detected");
 });
+
+test("rejects active content markers beyond the image header", () => {
+  const suspicious = Buffer.concat([png, Buffer.alloc(5000), Buffer.from("<svg onload=alert(1)>")]);
+  const result = validateImageUpload({
+    buffer: suspicious,
+    contentType: "image/png",
+    fileName: "me.png"
+  });
+  assert.equal(result.ok, false);
+  assert.equal(result.code, "active_content_detected");
+});
