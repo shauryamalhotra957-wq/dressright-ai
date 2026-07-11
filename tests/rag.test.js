@@ -34,6 +34,15 @@ test("profile sanitization strips prompt-injection language", () => {
   assert.equal(profile.favoriteStyleIcon.includes("password"), false);
 });
 
+test("profile sanitization allowlists selection values", () => {
+  const profile = sanitizeProfile({
+    occasions: ["office", "DROP TABLE", "office", "wedding"],
+    colors: ["navy", "beacon-red", "olive", "<script>"]
+  });
+  assert.deepEqual(profile.occasions, ["office", "wedding"]);
+  assert.deepEqual(profile.colors, ["navy", "olive"]);
+});
+
 test("recommendation returns a priced capsule and RAG sources", () => {
   const recommendation = buildRecommendation({
     rawProfile: {

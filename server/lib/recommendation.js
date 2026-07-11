@@ -7,6 +7,8 @@ const ALLOWED_STYLE_MODES = new Set(["minimal", "executive", "creative", "date",
 const ALLOWED_SERVICE_MODES = new Set(["ai", "hybrid", "concierge"]);
 const ALLOWED_CARE = new Set(["very-low", "normal", "fine-with-tailoring"]);
 const ALLOWED_FIT = new Set(["slimmer", "balanced", "relaxed"]);
+const ALLOWED_OCCASIONS = new Set(["office", "date", "travel", "weekend", "interview", "wedding"]);
+const ALLOWED_COLORS = new Set(["navy", "charcoal", "white", "olive", "stone", "oxblood", "rust", "black"]);
 
 const CATEGORY_ORDER = ["jacket", "shirt", "trouser", "shoe", "accessory", "outerwear"];
 
@@ -17,6 +19,16 @@ function scrubText(value, max = 80) {
     .replace(/\s+/g, " ")
     .trim()
     .slice(0, max);
+}
+
+function cleanSelections(items, allowedValues, limit, max = 32) {
+  return Array.from(
+    new Set(
+      items
+        .map((item) => scrubText(item, max).toLowerCase())
+        .filter((item) => allowedValues.has(item))
+    )
+  ).slice(0, limit);
 }
 
 function sanitizeProfile(raw = {}) {
@@ -38,8 +50,8 @@ function sanitizeProfile(raw = {}) {
     height: scrubText(raw.height, 20),
     waist: scrubText(raw.waist, 12),
     shoe: scrubText(raw.shoe, 12),
-    occasions: occasions.map((item) => scrubText(item, 32)).filter(Boolean).slice(0, 6),
-    colors: colors.map((item) => scrubText(item, 24)).filter(Boolean).slice(0, 5)
+    occasions: cleanSelections(occasions, ALLOWED_OCCASIONS, 6),
+    colors: cleanSelections(colors, ALLOWED_COLORS, 5, 24)
   };
 }
 
