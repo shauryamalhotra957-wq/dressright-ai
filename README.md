@@ -4,6 +4,15 @@ DressRight AI is a working prototype for a men's styling website. A user uploads
 
 ![DressRight AI styling studio](public/assets/hero-styling-studio.png)
 
+## Project Snapshot
+
+| Area | Detail |
+| --- | --- |
+| Experience | AI-assisted menswear styling and checkout prototype |
+| Core system | Secure uploads, style retrieval, capsule recommendation, transparent pricing |
+| Design signal | Editorial styling studio with product, budget, and checkout flow in one path |
+| Quality signal | Node test suite, API notes, threat model, security policy |
+
 ## Repository Description
 
 **GitHub description:** AI-assisted menswear styling website with secure photo upload validation, RAG-backed capsule recommendations, transparent pricing, and checkout simulation.
