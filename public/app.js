@@ -219,11 +219,17 @@ async function init() {
     buildCapsule(event).catch((error) => {
       setStatus("Try again", "error");
       $("#solutionBody").className = "empty-state";
-      $("#solutionBody").innerHTML = `<strong>Could not build capsule.</strong><span>${error.message}</span>`;
+      $("#solutionBody").innerHTML = `<strong>Could not build capsule.</strong><span>${escapeHtml(error.message)}</span>`;
     });
   });
   $("#checkoutButton").addEventListener("click", checkout);
   $("#resetButton").addEventListener("click", resetForm);
 }
 
-init();
+if (typeof document !== "undefined") {
+  init();
+}
+
+if (typeof module !== "undefined") {
+  module.exports = { escapeHtml };
+}
