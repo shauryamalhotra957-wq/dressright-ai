@@ -2,7 +2,9 @@
 
 const state = {
   csrfToken: null,
-  latestRecommendation: null
+  latestRecommendation: null,
+  maxUploadBytes: 5 * 1024 * 1024,
+  previewUrl: null
 };
 
 const $ = (selector) => document.querySelector(selector);
@@ -30,6 +32,19 @@ function setStatus(text, kind = "neutral") {
 
 function selectedValues(name) {
   return $$(`input[name="${name}"]:checked`).map((input) => input.value);
+}
+
+function validatePhotoFile(file, maxUploadBytes = state.maxUploadBytes) {
+  if (!file) return { ok: false, message: "Choose a photo before uploading." };
+  const allowedTypes = new Set(["image/png", "image/jpeg", "image/webp"]);
+  if (!allowedTypes.has(file.type)) {
+    return { ok: false, message: "Only PNG, JPG, or WebP photos are accepted." };
+  }
+  if (file.size > maxUploadBytes) {
+    const limitMb = Math.round(maxUploadBytes / (1024 * 1024));
+    return { ok: false, message: `Photo is larger than the ${limitMb} MB limit.` };
+  }
+  return { ok: true };
 }
 
 function collectProfile() {
@@ -138,10 +153,17 @@ function renderRecommendation(recommendation) {
 }
 
 async function uploadPhoto(file) {
-  if (!file) return;
+  const validation = validatePhotoFile(file);
+  if (!validation.ok) {
+    $("#uploadMeta").textContent = validation.message;
+    setStatus("Upload blocked", "error");
+    return;
+  }
   setStatus("Scanning", "busy");
   const preview = $("#photoPreview");
-  preview.src = URL.createObjectURL(file);
+  if (state.previewUrl) URL.revokeObjectURL(state.previewUrl);
+  state.previewUrl = URL.createObjectURL(file);
+  preview.src = state.previewUrl;
   $("#uploadTitle").textContent = file.name;
   $("#uploadMeta").textContent = `${Math.round(file.size / 1024)} KB selected`;
   const data = await api("/api/upload", {
@@ -192,6 +214,8 @@ function resetForm() {
   $("#styleForm").reset();
   $("#budget").value = "900";
   $("#budgetValue").textContent = "$900";
+  if (state.previewUrl) URL.revokeObjectURL(state.previewUrl);
+  state.previewUrl = null;
   $("#photoPreview").removeAttribute("src");
   $("#uploadTitle").textContent = "Add a full-body or recent outfit photo";
   $("#uploadMeta").textContent = "PNG, JPG, or WebP. Validated before styling.";
@@ -201,6 +225,7 @@ async function init() {
   try {
     const session = await api("/api/session");
     state.csrfToken = session.csrfToken;
+    state.maxUploadBytes = session.maxUploadBytes || state.maxUploadBytes;
     setStatus("Secure session", "ok");
   } catch {
     setStatus("Offline", "error");
@@ -231,5 +256,5 @@ if (typeof document !== "undefined") {
 }
 
 if (typeof module !== "undefined") {
-  module.exports = { escapeHtml };
+  module.exports = { escapeHtml, validatePhotoFile };
 }
