@@ -97,6 +97,8 @@ function renderRecommendation(recommendation) {
   renderPrice(recommendation.pricing);
   $("#checkoutButton").disabled = false;
   $("#checkoutNote").textContent = recommendation.pricing.service.description;
+  $("#fitSignal").textContent = recommendation.upload ? "Photo tuned" : "Preference tuned";
+  $("#capsuleDepth").textContent = `${recommendation.items.length} items`;
 
   const itemCards = recommendation.items
     .map(

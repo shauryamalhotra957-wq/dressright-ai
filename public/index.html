@@ -4,9 +4,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>DressRight AI</title>
-    <link rel="stylesheet" href="/styles.css?v=20260701" />
+    <link rel="stylesheet" href="/styles.css?v=20260714" />
   </head>
   <body>
+    <div class="entry-veil" aria-hidden="true">
+      <div class="entry-frame">
+        <span>DR-01 wardrobe scan</span>
+        <strong>Personal studio opening</strong>
+      </div>
+    </div>
     <header class="topbar">
       <a class="brand" href="/" aria-label="DressRight AI home">
         <span class="brand-mark">DR</span>
@@ -25,6 +31,11 @@
           <p class="eyebrow">Upload. Approve. Ship.</p>
           <h1>Dress like you care, without caring about shopping.</h1>
           <p class="lede">A photo-first menswear assistant that turns lazy preferences into a priced, shippable capsule.</p>
+          <div class="hero-metrics" aria-label="Service highlights">
+            <span><strong>8 min</strong> style brief</span>
+            <span><strong>12</strong> capsule looks</span>
+            <span><strong>0</strong> retained photos</span>
+          </div>
         </div>
 
         <form class="styler-panel" id="styleForm" autocomplete="off">
@@ -136,6 +147,21 @@
               Reset
             </button>
           </div>
+
+          <div class="fit-signal-grid" aria-label="Capsule readiness">
+            <article>
+              <span>Fit signal</span>
+              <strong id="fitSignal">Waiting</strong>
+            </article>
+            <article>
+              <span>Capsule depth</span>
+              <strong id="capsuleDepth">0 items</strong>
+            </article>
+            <article>
+              <span>Checkout guard</span>
+              <strong>Hosted pay</strong>
+            </article>
+          </div>
         </form>
       </section>
 
@@ -157,6 +183,12 @@
               <strong id="totalPrice">$0</strong>
             </div>
             <div id="priceLines" class="price-lines"></div>
+            <div class="checkout-timeline" aria-label="Checkout steps">
+              <span>Review</span>
+              <span>Approve</span>
+              <span>Secure pay</span>
+              <span>Ship</span>
+            </div>
             <button class="primary wide" id="checkoutButton" type="button" disabled title="Approve and create checkout">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6h15l-2 8H8L6 3H3m5 15a1 1 0 1 0 0 2 1 1 0 0 0 0-2Zm10 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2Z" /></svg>
               Approve capsule
@@ -189,8 +221,21 @@
           </article>
         </div>
       </section>
+
+      <footer class="studio-footer">
+        <div>
+          <span class="brand-mark">DR</span>
+          <strong>DressRight AI</strong>
+          <p>Private styling interface for sharper capsules, safer uploads, and faster checkout decisions.</p>
+        </div>
+        <nav aria-label="Footer">
+          <a href="#styler">Styler</a>
+          <a href="#capsule">Capsule</a>
+          <a href="#trust">Security</a>
+        </nav>
+      </footer>
     </main>
 
-    <script src="/app.js?v=20260701" defer></script>
+    <script src="/app.js?v=20260714" defer></script>
   </body>
 </html>
