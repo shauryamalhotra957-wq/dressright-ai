@@ -3,7 +3,7 @@
 const test = require("node:test");
 const assert = require("node:assert/strict");
 const { readFileSync } = require("node:fs");
-const { escapeHtml, validatePhotoFile } = require("../public/app");
+const { escapeHtml, getEmptyRecommendationState, validatePhotoFile } = require("../public/app");
 
 const html = readFileSync("public/index.html", "utf8");
 
@@ -15,6 +15,17 @@ test("validatePhotoFile blocks unsupported and oversized selections before uploa
   assert.equal(validatePhotoFile({ type: "image/png", size: 1024 }).ok, true);
   assert.equal(validatePhotoFile({ type: "image/svg+xml", size: 1024 }).message, "Only PNG, JPG, or WebP photos are accepted.");
   assert.equal(validatePhotoFile({ type: "image/jpeg", size: 6 * 1024 * 1024 }, 5 * 1024 * 1024).message, "Photo is larger than the 5 MB limit.");
+});
+
+test("empty recommendation state disables stale checkout actions", () => {
+  const empty = getEmptyRecommendationState();
+  assert.equal(empty.title, "Your plan appears here after the first run.");
+  assert.equal(empty.solutionClass, "empty-state");
+  assert.equal(empty.totalPrice, "$0");
+  assert.equal(empty.priceLinesHtml, "");
+  assert.equal(empty.checkoutDisabled, true);
+  assert.equal(empty.checkoutNote, "No checkout yet.");
+  assert.match(empty.solutionHtml, /Ready when your photo is\./);
 });
 
 test("upload and API status updates are exposed to assistive tech", () => {

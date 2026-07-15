@@ -10,6 +10,10 @@ const state = {
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => Array.from(document.querySelectorAll(selector));
 const currency = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+const EMPTY_RECOMMENDATION_HTML = `
+  <strong>Ready when your photo is.</strong>
+  <span>The recommendation engine can run with preferences only, but a photo gives the fit brief more signal.</span>
+`;
 
 function escapeHtml(value) {
   return String(value ?? "").replace(/[&<>"']/g, (char) => {
@@ -28,6 +32,30 @@ function setStatus(text, kind = "neutral") {
   const status = $("#apiStatus");
   status.textContent = text;
   status.dataset.kind = kind;
+}
+
+function getEmptyRecommendationState() {
+  return {
+    title: "Your plan appears here after the first run.",
+    solutionClass: "empty-state",
+    solutionHtml: EMPTY_RECOMMENDATION_HTML,
+    totalPrice: "$0",
+    priceLinesHtml: "",
+    checkoutDisabled: true,
+    checkoutNote: "No checkout yet."
+  };
+}
+
+function clearRecommendation() {
+  const empty = getEmptyRecommendationState();
+  state.latestRecommendation = null;
+  $("#resultTitle").textContent = empty.title;
+  $("#solutionBody").className = empty.solutionClass;
+  $("#solutionBody").innerHTML = empty.solutionHtml;
+  $("#totalPrice").textContent = empty.totalPrice;
+  $("#priceLines").innerHTML = empty.priceLinesHtml;
+  $("#checkoutButton").disabled = empty.checkoutDisabled;
+  $("#checkoutNote").textContent = empty.checkoutNote;
 }
 
 function selectedValues(name) {
@@ -221,6 +249,8 @@ function resetForm() {
   $("#photoPreview").removeAttribute("src");
   $("#uploadTitle").textContent = "Add a full-body or recent outfit photo";
   $("#uploadMeta").textContent = "PNG, JPG, or WebP. Validated before styling.";
+  clearRecommendation();
+  setStatus(state.csrfToken ? "Secure session" : "Offline", state.csrfToken ? "ok" : "error");
 }
 
 async function init() {
@@ -258,5 +288,5 @@ if (typeof document !== "undefined") {
 }
 
 if (typeof module !== "undefined") {
-  module.exports = { escapeHtml, validatePhotoFile };
+  module.exports = { escapeHtml, getEmptyRecommendationState, validatePhotoFile };
 }
