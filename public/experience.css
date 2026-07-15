@@ -1,0 +1,48 @@
+:root {
+  --experience-ring: rgba(217, 169, 79, 0.78);
+  --experience-radius: 22px;
+}
+
+html { scrollbar-gutter: stable; }
+::selection { color: #08090b; background: var(--gold); }
+
+:where(button, input, select, textarea, a) { touch-action: manipulation; }
+:where(button, .primary, .secondary, .upload-drop) { min-block-size: 44px; }
+:where(input, select, textarea) { min-block-size: 44px; font-size: max(1rem, 16px); }
+
+:where(button, input, select, textarea, a):focus-visible {
+  outline: 3px solid var(--experience-ring);
+  outline-offset: 3px;
+}
+
+:where(.styler-panel, .item-card, .summary-tile, .trust-grid article, .checkout-panel, .empty-state) {
+  border-radius: var(--experience-radius);
+  border-color: rgba(217, 169, 79, 0.2);
+  background-image: linear-gradient(145deg, rgba(27, 28, 34, 0.96), rgba(12, 13, 17, 0.9));
+  box-shadow: 0 24px 72px rgba(0, 0, 0, 0.4), inset 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.hero h1,
+.section-head h2 {
+  text-wrap: balance;
+}
+
+:where(.item-card, .summary-tile, .trust-grid article) {
+  transition: border-color 220ms ease, box-shadow 220ms ease, background-color 220ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :where(.item-card, .summary-tile, .trust-grid article):hover {
+    border-color: rgba(217, 169, 79, 0.4);
+    box-shadow: 0 28px 76px rgba(0, 0, 0, 0.48), 0 0 28px rgba(217, 169, 79, 0.08);
+  }
+}
+
+@media (max-width: 640px) {
+  :root { --experience-radius: 17px; }
+  .topbar nav { overflow-x: auto; scrollbar-width: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
