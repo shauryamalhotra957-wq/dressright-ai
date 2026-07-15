@@ -135,3 +135,7 @@ See:
 
 This project is currently marked `UNLICENSED` in `package.json`. Add a license before accepting external contributions or reuse.
 
+## Experience Design
+
+The wardrobe experience follows the [DressRight design system](design-system/dressright-ai/MASTER.md): editorial typography, premium restraint, accessible controls, responsive navigation, and motion that yields to reduced-motion preferences.
+
