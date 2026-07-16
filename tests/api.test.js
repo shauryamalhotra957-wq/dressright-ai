@@ -72,6 +72,34 @@ test("API session, CSRF, and recommendation flow", async () => {
     const data = await recommendationResponse.json();
     assert.equal(data.ok, true);
     assert.ok(data.recommendation.pricing.total > 0);
+
+    const checkoutResponse = await fetch(`${base}/api/checkout`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRF-Token": session.csrfToken,
+        Cookie: cookie
+      },
+      body: JSON.stringify({
+        recommendationId: data.recommendation.id,
+        total: 1
+      })
+    });
+    assert.equal(checkoutResponse.status, 200);
+    const checkout = await checkoutResponse.json();
+    assert.equal(checkout.amount, data.recommendation.pricing.total);
+
+    const staleCheckout = await fetch(`${base}/api/checkout`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRF-Token": session.csrfToken,
+        Cookie: cookie
+      },
+      body: JSON.stringify({ recommendationId: "rec_stale", total: 1 })
+    });
+    assert.equal(staleCheckout.status, 409);
+    assert.equal((await staleCheckout.json()).error, "recommendation_not_current");
   } finally {
     server.close();
   }
