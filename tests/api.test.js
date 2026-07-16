@@ -72,6 +72,25 @@ test("API session, CSRF, and recommendation flow", async () => {
     const data = await recommendationResponse.json();
     assert.equal(data.ok, true);
     assert.ok(data.recommendation.pricing.total > 0);
+    assert.match(data.recommendation.id, /^rec_[a-f0-9]{32}$/);
+
+    const checkoutResponse = await fetch(`${base}/api/checkout`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRF-Token": session.csrfToken,
+        Cookie: cookie
+      },
+      body: JSON.stringify({
+        recommendationId: data.recommendation.id,
+        total: data.recommendation.pricing.total
+      })
+    });
+    assert.equal(checkoutResponse.status, 200);
+    const checkout = await checkoutResponse.json();
+    assert.equal(checkout.ok, true);
+    assert.match(checkout.orderId, /^ord_[a-f0-9]{32}$/);
+    assert.match(checkout.hostedCheckoutUrl, new RegExp(`order=${checkout.orderId}$`));
   } finally {
     server.close();
   }

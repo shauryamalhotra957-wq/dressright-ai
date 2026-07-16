@@ -7,6 +7,7 @@ const { URL } = require("url");
 
 const { MAX_UPLOAD_BYTES, validateImageUpload } = require("./lib/uploads");
 const { buildRecommendation } = require("./lib/recommendation");
+const { publicId } = require("./lib/ids");
 const {
   cleanExpiredState,
   enforceRateLimit,
@@ -134,7 +135,7 @@ function createServer(options = {}) {
       if (req.method === "POST" && url.pathname === "/api/checkout") {
         if (!requireCsrf(req, res, session)) return;
         const payload = await readJsonBody(req);
-        const orderId = `ord_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`;
+        const orderId = publicId("ord");
         return writeJson(res, 200, {
           ok: true,
           orderId,

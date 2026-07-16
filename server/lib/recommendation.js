@@ -2,6 +2,7 @@
 
 const { retrieveStyleIntel } = require("./rag");
 const { calculateCapsulePrice } = require("./pricing");
+const { publicId } = require("./ids");
 
 const ALLOWED_STYLE_MODES = new Set(["minimal", "executive", "creative", "date", "travel"]);
 const ALLOWED_SERVICE_MODES = new Set(["ai", "hybrid", "concierge"]);
@@ -104,7 +105,7 @@ function buildRecommendation({ rawProfile, uploadReport, knowledgeDocs, catalog 
   };
 
   return {
-    id: `rec_${Date.now().toString(36)}`,
+    id: publicId("rec"),
     profile,
     upload: uploadReport
       ? {
