@@ -148,17 +148,30 @@ function readBody(req, maxBytes) {
   });
 }
 
-function cleanExpiredState() {
-  const cutoff = Date.now() - 2 * 60 * 60 * 1000;
+function pruneExpiredRateBuckets(now = Date.now()) {
+  let removed = 0;
+  for (const [key, bucket] of rateBuckets) {
+    if (now - bucket.started > WINDOW_MS) {
+      rateBuckets.delete(key);
+      removed += 1;
+    }
+  }
+  return removed;
+}
+
+function cleanExpiredState(now = Date.now()) {
+  const cutoff = now - 2 * 60 * 60 * 1000;
   for (const [id, session] of sessions) {
     if (session.lastSeen < cutoff) sessions.delete(id);
   }
+  pruneExpiredRateBuckets(now);
 }
 
 module.exports = {
   cleanExpiredState,
   enforceRateLimit,
   getSession,
+  pruneExpiredRateBuckets,
   readBody,
   requireCsrf,
   setSecurityHeaders,
