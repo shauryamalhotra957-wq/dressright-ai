@@ -128,18 +128,28 @@ function createServer(options = {}) {
           knowledgeDocs,
           catalog
         });
+        session.checkout = {
+          recommendationId: recommendation.id,
+          total: recommendation.pricing.total
+        };
         return writeJson(res, 200, { ok: true, recommendation });
       }
 
       if (req.method === "POST" && url.pathname === "/api/checkout") {
         if (!requireCsrf(req, res, session)) return;
         const payload = await readJsonBody(req);
+        if (!session.checkout || payload.recommendationId !== session.checkout.recommendationId) {
+          return writeJson(res, 409, {
+            error: "recommendation_not_current",
+            message: "Generate a current recommendation before creating checkout."
+          });
+        }
         const orderId = `ord_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`;
         return writeJson(res, 200, {
           ok: true,
           orderId,
           hostedCheckoutUrl: `/checkout/hosted-demo?order=${encodeURIComponent(orderId)}`,
-          amount: payload.total || null,
+          amount: session.checkout.total,
           note: "Demo checkout created. Production should redirect to a PCI-compliant hosted payment page and keep card data off this server."
         });
       }
