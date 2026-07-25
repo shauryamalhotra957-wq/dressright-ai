@@ -4,8 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>DressRight AI</title>
-    <link rel="stylesheet" href="/styles.css?v=20260714" />
-    <link rel="stylesheet" href="/experience.css?v=20260715" />
+    <link rel="stylesheet" href="/styles.css?v=20260726" />
+    <link rel="stylesheet" href="/experience.css?v=20260726" />
   </head>
   <body>
     <div class="entry-veil" aria-hidden="true">
@@ -49,12 +49,12 @@
           </div>
 
           <label class="upload-drop" for="photoInput" id="dropZone">
-            <input id="photoInput" name="photo" type="file" accept="image/png,image/jpeg,image/webp" />
+            <input id="photoInput" name="photo" type="file" accept="image/png,image/jpeg,image/webp" aria-describedby="uploadMeta" />
             <span class="upload-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><path d="M12 16V4m0 0 5 5m-5-5-5 5M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3" /></svg>
             </span>
             <span>
-              <strong id="uploadTitle">Add a full-body or recent outfit photo</strong>
+              <strong id="uploadTitle">Drop or choose a full-body or recent outfit photo</strong>
               <small id="uploadMeta" aria-live="polite">PNG, JPG, or WebP. Validated before styling.</small>
             </span>
             <img id="photoPreview" alt="" />
@@ -237,6 +237,6 @@
       </footer>
     </main>
 
-    <script src="/app.js?v=20260714" defer></script>
+    <script src="/app.js?v=20260726" defer></script>
   </body>
 </html>

@@ -223,6 +223,22 @@ svg {
   padding: 0.85rem;
   background: rgba(255, 255, 255, 0.05);
   cursor: pointer;
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.upload-drop:focus-within,
+.upload-drop.is-dragging {
+  border-color: var(--gold);
+  background: rgba(217, 169, 79, 0.12);
+  box-shadow: 0 0 0 4px rgba(217, 169, 79, 0.16);
+}
+
+.upload-drop.is-dragging {
+  transform: translateY(-2px);
 }
 
 .upload-drop input {
@@ -769,7 +785,8 @@ button:disabled {
   }
 
   .styler-panel {
-    max-height: calc(92svh - 20rem);
+    max-height: none;
+    overflow: visible;
   }
 
   .upload-drop {

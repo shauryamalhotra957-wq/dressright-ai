@@ -31,4 +31,14 @@ test("empty recommendation state disables stale checkout actions", () => {
 test("upload and API status updates are exposed to assistive tech", () => {
   assert.match(html, /id="apiStatus"[^>]*role="status"[^>]*aria-live="polite"/);
   assert.match(html, /id="uploadMeta"[^>]*aria-live="polite"/);
+  assert.match(html, /id="photoInput"[^>]*aria-describedby="uploadMeta"/);
+});
+
+test("the photo workflow supports a real drop target", () => {
+  const app = readFileSync("public/app.js", "utf8");
+  const css = readFileSync("public/styles.css", "utf8");
+  assert.match(app, /addEventListener\("drop"/);
+  assert.match(app, /dataTransfer\?\.files/);
+  assert.match(css, /\.upload-drop\.is-dragging/);
+  assert.match(css, /\.upload-drop:focus-within/);
 });

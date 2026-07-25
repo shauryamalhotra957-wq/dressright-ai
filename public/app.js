@@ -208,6 +208,13 @@ async function uploadPhoto(file) {
   setStatus("Photo accepted", "ok");
 }
 
+function handlePhotoSelection(file) {
+  uploadPhoto(file).catch((error) => {
+    $("#uploadMeta").textContent = error.message;
+    setStatus("Upload blocked", "error");
+  });
+}
+
 async function buildCapsule(event) {
   event.preventDefault();
   setStatus("Building", "busy");
@@ -247,7 +254,7 @@ function resetForm() {
   if (state.previewUrl) URL.revokeObjectURL(state.previewUrl);
   state.previewUrl = null;
   $("#photoPreview").removeAttribute("src");
-  $("#uploadTitle").textContent = "Add a full-body or recent outfit photo";
+  $("#uploadTitle").textContent = "Drop or choose a full-body or recent outfit photo";
   $("#uploadMeta").textContent = "PNG, JPG, or WebP. Validated before styling.";
   clearRecommendation();
   setStatus(state.csrfToken ? "Secure session" : "Offline", state.csrfToken ? "ok" : "error");
@@ -266,11 +273,23 @@ async function init() {
   $("#budget").addEventListener("input", (event) => {
     $("#budgetValue").textContent = currency.format(Number(event.target.value));
   });
-  $("#photoInput").addEventListener("change", (event) => {
-    uploadPhoto(event.target.files[0]).catch((error) => {
-      $("#uploadMeta").textContent = error.message;
-      setStatus("Upload blocked", "error");
+  const dropZone = $("#dropZone");
+  $("#photoInput").addEventListener("change", (event) => handlePhotoSelection(event.target.files[0]));
+  ["dragenter", "dragover"].forEach((eventName) => {
+    dropZone.addEventListener(eventName, (event) => {
+      event.preventDefault();
+      if (Array.from(event.dataTransfer?.types || []).includes("Files")) {
+        event.dataTransfer.dropEffect = "copy";
+        dropZone.classList.add("is-dragging");
+      }
     });
+  });
+  dropZone.addEventListener("dragleave", () => dropZone.classList.remove("is-dragging"));
+  dropZone.addEventListener("drop", (event) => {
+    event.preventDefault();
+    dropZone.classList.remove("is-dragging");
+    const file = event.dataTransfer?.files?.[0];
+    if (file) handlePhotoSelection(file);
   });
   $("#styleForm").addEventListener("submit", (event) => {
     buildCapsule(event).catch((error) => {
