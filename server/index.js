@@ -60,6 +60,18 @@ async function readJsonBody(req) {
   return JSON.parse(body.toString("utf8"));
 }
 
+function resolveCheckoutAmount(payload, session) {
+  const expected = session?.recommendation?.pricing?.total;
+  const submitted = Number(payload?.total);
+  if (!Number.isFinite(expected)) {
+    return { ok: false, status: 409, error: "recommendation_required", message: "Create a recommendation before checkout." };
+  }
+  if (!Number.isFinite(submitted) || submitted !== expected) {
+    return { ok: false, status: 409, error: "amount_mismatch", message: "Checkout amount does not match the current recommendation." };
+  }
+  return { ok: true, amount: expected };
+}
+
 function createServer(options = {}) {
   const publicDir = options.publicDir || DEFAULT_PUBLIC_DIR;
   const dataDir = options.dataDir || DEFAULT_DATA_DIR;
@@ -129,18 +141,21 @@ function createServer(options = {}) {
           knowledgeDocs,
           catalog
         });
+        session.recommendation = recommendation;
         return writeJson(res, 200, { ok: true, recommendation });
       }
 
       if (req.method === "POST" && url.pathname === "/api/checkout") {
         if (!requireCsrf(req, res, session)) return;
         const payload = await readJsonBody(req);
+        const amount = resolveCheckoutAmount(payload, session);
+        if (!amount.ok) return writeJson(res, amount.status, { error: amount.error, message: amount.message });
         const orderId = publicId("ord");
         return writeJson(res, 200, {
           ok: true,
           orderId,
           hostedCheckoutUrl: `/checkout/hosted-demo?order=${encodeURIComponent(orderId)}`,
-          amount: payload.total || null,
+          amount: amount.amount,
           note: "Demo checkout created. Production should redirect to a PCI-compliant hosted payment page and keep card data off this server."
         });
       }
@@ -181,5 +196,6 @@ if (require.main === module) {
 
 module.exports = {
   createServer,
+  resolveCheckoutAmount,
   safeStaticPath
 };
