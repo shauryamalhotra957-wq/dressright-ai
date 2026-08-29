@@ -139,3 +139,6 @@ This project is currently marked `UNLICENSED` in `package.json`. Add a license b
 
 The wardrobe experience follows the [DressRight design system](design-system/dressright-ai/MASTER.md): editorial typography, premium restraint, accessible controls, responsive navigation, and motion that yields to reduced-motion preferences.
 
+## Checkout integrity
+
+Checkout totals are accepted only when they match the server-generated recommendation stored in the session; client-side totals cannot change the amount. Invalid catalog prices are ignored by the pricing engine, and both behaviors are covered by focused tests.
