@@ -19,8 +19,9 @@ const SERVICE_LEVELS = {
 };
 
 function calculateCapsulePrice(items, serviceMode = "hybrid", options = {}) {
+  const safeItems = Array.isArray(items) ? items : [];
   const level = SERVICE_LEVELS[serviceMode] || SERVICE_LEVELS.hybrid;
-  const subtotal = items.reduce((sum, item) => sum + Number(item.price || 0), 0);
+  const subtotal = safeItems.reduce((sum, item) => {\n    const price = Number(item?.price);\n    return sum + (Number.isFinite(price) && price >= 0 ? price : 0);\n  }, 0);
   const alterationsReserve = options.includeAlterations === false ? 0 : Math.round(subtotal * 0.07);
   const stylingFee = level.fee;
   const shipping = subtotal >= 500 ? 0 : 18;
