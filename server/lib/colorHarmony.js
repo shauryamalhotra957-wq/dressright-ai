@@ -1,9 +1,6 @@
-﻿/**
- * Color Harmony Engine for Menswear Styling
- * Computes color wheel relationships: Monochromatic, Complementary, Analogous, and Seasonal Palettes.
- */
+﻿"use strict";
 
-export class ColorHarmonyEngine {
+class ColorHarmonyEngine {
   static HEX_TO_RGB(hex) {
     const clean = hex.replace("#", "");
     if (clean.length === 3) {
@@ -63,20 +60,16 @@ export class ColorHarmonyEngine {
     const hueDiff = Math.abs(hsl1.h - hsl2.h);
     const minHueDiff = Math.min(hueDiff, 360 - hueDiff);
 
-    // Monochromatic (similar hue, variance in lightness)
     if (minHueDiff <= 15) {
       return { rule: "Monochromatic", score: 0.95, advice: "Tonal pairing with clean contrast" };
     }
-    // Analogous (adjacent colors on wheel, 15 to 45 deg)
     if (minHueDiff > 15 && minHueDiff <= 45) {
       return { rule: "Analogous", score: 0.9, advice: "Harmonious adjacent tones for a refined aesthetic" };
     }
-    // Complementary (opposing colors on wheel, 150 to 180 deg)
     if (minHueDiff >= 150 && minHueDiff <= 180) {
       return { rule: "Complementary", score: 0.85, advice: "Bold contrast; anchor with neutral base" };
     }
 
-    // Neutral base handling (low saturation)
     if (hsl1.s <= 15 || hsl2.s <= 15) {
       return { rule: "Neutral-Accent", score: 0.92, advice: "Classic versatile neutral grounding" };
     }
@@ -84,7 +77,7 @@ export class ColorHarmonyEngine {
     return { rule: "Custom-Blend", score: 0.75, advice: "Dynamic color balance" };
   }
 
-  static getSeasonalPalette(season) {
+  static getSeasonalPalette(season = "autumn") {
     const palettes = {
       autumn: ["#2B1B17", "#8B4513", "#D2691E", "#556B2F", "#F4A460"],
       winter: ["#000000", "#191970", "#4682B4", "#708090", "#FFFFFF"],
@@ -94,3 +87,7 @@ export class ColorHarmonyEngine {
     return palettes[season.toLowerCase()] || palettes.autumn;
   }
 }
+
+module.exports = {
+  ColorHarmonyEngine,
+};

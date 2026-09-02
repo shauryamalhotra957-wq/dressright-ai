@@ -3,6 +3,7 @@
 const { retrieveStyleIntel } = require("./rag");
 const { calculateCapsulePrice } = require("./pricing");
 const { publicId } = require("./ids");
+const { ColorHarmonyEngine } = require("./colorHarmony");
 
 const ALLOWED_STYLE_MODES = new Set(["minimal", "executive", "creative", "date", "travel"]);
 const ALLOWED_SERVICE_MODES = new Set(["ai", "hybrid", "concierge"]);
@@ -83,9 +84,20 @@ function chooseCapsuleItems(retrievedItems, budget) {
 function buildColorStory(profile, items) {
   const colors = Array.from(new Set(items.flatMap((item) => item.colors || []))).slice(0, 5);
   const preferred = profile.colors.length ? profile.colors : colors;
+  const baseColors = preferred.slice(0, 3);
+  const accent = colors.find((color) => !preferred.includes(color)) || "oxblood";
+  const harmony = ColorHarmonyEngine.evaluateHarmony(
+    baseColors[0] === "navy" ? "#191970" : "#222222",
+    accent === "oxblood" ? "#800020" : "#4A6B82"
+  );
+  const seasonalPalette = ColorHarmonyEngine.getSeasonalPalette(profile.styleMode === "creative" ? "summer" : "autumn");
+
   return {
-    base: preferred.slice(0, 3),
-    accent: colors.find((color) => !preferred.includes(color)) || "oxblood",
+    base: baseColors,
+    accent,
+    harmony: harmony.rule,
+    harmonyAdvice: harmony.advice,
+    seasonalPalette,
     note: "Everything can be worn in at least three pairings, so getting dressed becomes a default path instead of a decision tree."
   };
 }

@@ -1,6 +1,6 @@
-﻿import { describe, it } from "node:test";
-import assert from "node:assert/strict";
-import { ColorHarmonyEngine } from "../server/lib/colorHarmony.js";
+﻿const { describe, it } = require("node:test");
+const assert = require("node:assert/strict");
+const { ColorHarmonyEngine } = require("../server/lib/colorHarmony.js");
 
 describe("ColorHarmonyEngine", () => {
   it("converts hex to RGB and HSL correctly", () => {
@@ -14,19 +14,16 @@ describe("ColorHarmonyEngine", () => {
   });
 
   it("identifies monochromatic and neutral pairings", () => {
-    // Neutral charcoal + Navy
     const neutralEval = ColorHarmonyEngine.evaluateHarmony("#222222", "#191970");
     assert.equal(neutralEval.rule, "Neutral-Accent");
     assert.ok(neutralEval.score >= 0.9);
 
-    // Monochromatic navies
     const monoEval = ColorHarmonyEngine.evaluateHarmony("#1a2a40", "#2c4870");
     assert.equal(monoEval.rule, "Monochromatic");
     assert.ok(monoEval.score >= 0.9);
   });
 
   it("identifies complementary contrast", () => {
-    // Blue (240) and Amber/Orange (60)
     const compEval = ColorHarmonyEngine.evaluateHarmony("#0000ff", "#ffaa00");
     assert.ok(["Complementary", "Custom-Blend"].includes(compEval.rule));
     assert.ok(compEval.score > 0.7);
