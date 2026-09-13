@@ -1,5 +1,8 @@
 # DressRight AI
 
+[![CI](https://github.com/shauryamalhotra957-wq/dressright-ai/actions/workflows/ci.yml/badge.svg)](https://github.com/shauryamalhotra957-wq/dressright-ai/actions) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+
 DressRight AI is a working prototype for a men's styling website. A user uploads a photo, chooses a style lane and budget, receives a RAG-backed capsule recommendation, sees the full price breakdown, and creates a hosted-checkout-style order.
 
 ![DressRight AI styling studio](public/assets/hero-styling-studio.png)
