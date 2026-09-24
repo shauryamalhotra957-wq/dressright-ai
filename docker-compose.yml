@@ -1,0 +1,9 @@
+version: '3.8'
+services:
+  dressright-ai:
+    build: .
+    volumes:
+      - .:/app
+    environment:
+      - NODE_ENV=production
+    command: node --test tests/appResilience.test.mjs
